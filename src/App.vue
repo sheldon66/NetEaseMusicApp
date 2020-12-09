@@ -8,6 +8,9 @@
 <script>
 import navbar from '@/components/navbar/navbar'
 export default {
+  beforeCreate: function() {
+    this.$router.replace(window.location.pathname).catch(() => {})
+  },
   components: { navbar }
 }
 

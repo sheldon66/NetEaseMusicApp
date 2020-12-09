@@ -1,22 +1,32 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Discover from '../views/discover.vue'
+import Playlist from '../views/playlist.vue'
+import notFound from '../views/notFound.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/discover',
     name: 'Discover',
     component: Discover
   },
   {
-    path: '/podcost',
-    name: 'Podcost',
+    path: '/playlist',
+    name: 'playlist',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/podcast.vue')
+    component: Playlist
+  },
+  {
+    path: '*',
+    name: '404',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: notFound
   }
 ]
 

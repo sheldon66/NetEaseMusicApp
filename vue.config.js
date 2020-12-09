@@ -1,7 +1,7 @@
 module.exports = {
   configureWebpack: {
     output: {
-      filename: "[name][hash:10].bundle.js"
+      filename: '[name][hash:10].bundle.js'
     }
   },
   css: {
@@ -26,9 +26,9 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      "/api": {
-        target: "http://localhost:3000",
-        pathRewrite: { "^/api": "" },
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': '' },
         changeOrigin: true,
         secure: false
       }
