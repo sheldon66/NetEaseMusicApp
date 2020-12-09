@@ -1,10 +1,14 @@
 <template>
   <nav id="navbar">
-    <ul>
-      <li v-for="(item, index) in items" :key="`${index}`">
-        <router-link to="/">{{ item }}</router-link>
-      </li>
-    </ul>
+    <div class="tabtitle">
+      <router-link
+        v-for="(item, index) in items"
+        :key="`${index}`"
+        :to="item.path"
+      >
+        {{ item.name }}
+      </router-link>
+    </div>
   </nav>
 </template>
 
@@ -12,7 +16,13 @@
 export default {
   name: 'navbar',
   data: function () {
-    return { items: ['发现', '播客', '我的', 'K歌', '云村'] }
+    return {
+      items: [{ name: '发现', path: '/discover' },
+        { name: '播客', path: '/' },
+        { name: '我的', path: '/user' },
+        { name: 'K歌', path: '/' },
+        { name: '云村', path: '/' }]
+    }
   }
 }
 </script>
@@ -20,9 +30,10 @@ export default {
 <style lang="scss">
 nav#navbar {
   height: 0;
-  position: relative;
+  position: fixed;
   padding-bottom: 20px;
-  ul {
+  z-index: 100;
+  div.tabtitle {
     display: flex;
     position: fixed;
     left: 0;
@@ -30,8 +41,7 @@ nav#navbar {
     height: 20px;
     width: 100%;
     background-color: $primary-color;
-    z-index: 100;
-    li {
+    a {
       flex: auto;
       text-align: center;
     }

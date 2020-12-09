@@ -16,22 +16,21 @@
         </div>
       </div>
     </div>
-    <div v-for="(track, index) in tracks" :key="index">
-      <div>{{ index + 1 }}</div>
-      <div>{{ track.name }}</div>
-      <div>
-        {{ track.ar.map((x) => x.name).join("/") }} - {{ track.al.name }}
-      </div>
-    </div>
+    <item
+      v-for="(track, index) in tracks"
+      :key="index"
+      :track="track"
+      :index="index + 1"
+    ></item>
   </div>
 </template>
 
 <script>
 import getPlaylistDetail from '@/api/playlistDetail.js'
-
+import item from '@/components/playlist/item.vue'
 export default {
   created: function () {
-    getPlaylistDetail('5350512347').then(response => {
+    getPlaylistDetail(this.$route.query.id).then(response => {
       this.$data.tracks = response.playlist.tracks
       this.$data.coverImgUrl = response.playlist.coverImgUrl
       this.$data.name = response.playlist.name
@@ -45,7 +44,8 @@ export default {
       name: null,
       creator: {}
     }
-  }
+  },
+  components: { item }
 }
 </script>
 
@@ -62,6 +62,10 @@ export default {
     background-size: cover;
     filter: blur(40px);
   }
+}
+img.album-cover {
+  width: 100px;
+  height: 100px;
 }
 .plhead {
   width: 80%;

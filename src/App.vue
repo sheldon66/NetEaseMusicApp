@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <router-view></router-view>
+    <router-view class="view"></router-view>
   </div>
 </template>
 
@@ -18,6 +18,9 @@ export default {
 <style lang="scss">
 #app {
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: auto;
+}
+.view {
+  margin-top: 30px;
 }
 </style>
