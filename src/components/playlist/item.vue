@@ -1,5 +1,5 @@
 <template>
-  <router-link class="item" to="/">
+  <router-link class="playlist-item" to="/">
     <div class="index">
       {{ index }}
     </div>
@@ -19,13 +19,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-a.item {
+<style lang="scss">
+a.playlist-item {
   display: flex;
   align-items: center;
+  margin-top: 20px;
+  .index,
+  .subtitle {
+    color: #888;
+  }
   .index {
     width: 10%;
     text-align: center;
+    font-size: 1.2em;
   }
   .subtitle {
     font-size: $small-fontsize;

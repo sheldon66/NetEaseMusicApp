@@ -17,6 +17,11 @@ const routes = [
     component: Discover
   },
   {
+    path: '/myself',
+    name: 'Myself',
+    component: () => import('@/views/myself.vue')
+  },
+  {
     path: '/playlist',
     name: 'playlist',
     // route level code-splitting

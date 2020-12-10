@@ -19,7 +19,7 @@ export default {
     return {
       items: [{ name: '发现', path: '/discover' },
         { name: '播客', path: '/' },
-        { name: '我的', path: '/user' },
+        { name: '我的', path: '/myself' },
         { name: 'K歌', path: '/' },
         { name: '云村', path: '/' }]
     }
@@ -29,16 +29,16 @@ export default {
 
 <style lang="scss">
 nav#navbar {
-  height: 0;
+  height: 30px;
   position: fixed;
-  padding-bottom: 20px;
   z-index: 100;
   div.tabtitle {
     display: flex;
+    align-items: center;
     position: fixed;
     left: 0;
     top: 0;
-    height: 20px;
+    height: 30px;
     width: 100%;
     background-color: $primary-color;
     a {

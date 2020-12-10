@@ -56,8 +56,9 @@ export default {
 .playlist-background {
   overflow: hidden;
   > div {
-    height: 140px;
+    height: 220px;
     width: 100%;
+    margin-top: -30px;
     background-position: center;
     background-size: cover;
     filter: blur(40px);
@@ -72,7 +73,7 @@ img.album-cover {
   height: 100px;
   position: absolute;
   display: flex;
-  top: 20px;
-  left: 20px;
+  top: 60px;
+  left: 30px;
 }
 </style>

@@ -21,6 +21,5 @@ export default {
   -webkit-overflow-scrolling: auto;
 }
 .view {
-  margin-top: 30px;
 }
 </style>
