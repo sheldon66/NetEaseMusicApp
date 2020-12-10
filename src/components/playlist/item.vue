@@ -4,8 +4,7 @@
       {{ index }}
     </div>
     <div class="content">
-      <div class="title"></div>
-      {{ track.name }}
+      <div class="title">{{ track.name }}</div>
       <div class="subtitle">
         {{ track.ar.map((x) => x.name).join("/") }} - {{ track.al.name }}
       </div>
@@ -24,17 +23,23 @@ a.playlist-item {
   display: flex;
   align-items: center;
   margin-top: 20px;
-  .index,
-  .subtitle {
-    color: #888;
-  }
   .index {
     width: 10%;
+    margin-right: 5px;
     text-align: center;
-    font-size: 1.2em;
+    color: #888;
   }
-  .subtitle {
-    font-size: $small-fontsize;
+  .content {
+    width: 90%;
+    > div {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .subtitle {
+      font-size: $small-fontsize;
+      color: #888;
+    }
   }
 }
 </style>

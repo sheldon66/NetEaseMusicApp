@@ -5,13 +5,15 @@
       <img :src="`${avatarUrl}?param=100y100`" />
       <div>{{ nickname }}</div>
     </div>
+    <profile class="playlists" v-if="isLogin"></profile>
   </div>
 </template>
 
 <script>
-import Login from '@/components/login/login.vue'
+import login from '@/components/login/login.vue'
 import checkLogin from '@/api/checkLogin'
 import { mapState } from 'vuex'
+import profile from '@/views/profile.vue'
 
 export default {
   created: function() {
@@ -28,7 +30,7 @@ export default {
     }
   },
   computed: mapState(['isLogin', 'avatarUrl', 'nickname']),
-  components: { Login }
+  components: { login, profile }
 }
 </script>
 
