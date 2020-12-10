@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Discover from '../views/discover.vue'
-import Playlist from '../views/playlist.vue'
-import notFound from '../views/notFound.vue'
 
 Vue.use(VueRouter)
 
@@ -14,7 +11,7 @@ const routes = [
   {
     path: '/discover',
     name: 'Discover',
-    component: Discover
+    component: () => import('@/views/discover.vue')
   },
   {
     path: '/myself',
@@ -27,7 +24,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Playlist
+    component: () => import('@/views/playlist.vue')
   },
   {
     path: '*',
@@ -35,7 +32,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: notFound
+    component: () => import('@/views/notFound.vue')
   }
 ]
 
