@@ -10,12 +10,12 @@ const routes = [
   },
   {
     path: '/discover',
-    name: 'Discover',
+    name: 'discover',
     component: () => import('@/views/discover.vue')
   },
   {
     path: '/myself',
-    name: 'Myself',
+    name: 'myself',
     component: () => import('@/views/myself.vue')
   },
   {
