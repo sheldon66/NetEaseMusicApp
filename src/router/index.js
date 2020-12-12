@@ -27,6 +27,14 @@ const routes = [
     component: () => import('@/views/playlist.vue')
   },
   {
+    path: '/song/:id',
+    name: 'song',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/views/song.vue')
+  },
+  {
     path: '*',
     name: '404',
     // route level code-splitting

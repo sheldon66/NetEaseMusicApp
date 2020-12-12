@@ -1,5 +1,5 @@
 <template>
-  <router-link class="playlist-item" to="/">
+  <router-link class="playlist-item" :to="`/song/${track.id}`">
     <div class="index">
       {{ index }}
     </div>
