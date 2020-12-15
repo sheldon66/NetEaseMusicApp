@@ -16,6 +16,8 @@
       <audio
         ref="audio"
         :src="`https://music.163.com/song/media/outer/url?id=${song.id}.mp3`"
+        @play="setPlayling(true)"
+        @pause="setPlayling(false)"
       ></audio>
       <div class="control-bar">
         <i class="iconfont icon-random"></i>
@@ -66,9 +68,8 @@ export default {
           this.$refs.audio.paused ? this.$refs.audio.play() : this.$refs.audio.pause()
         }
       )
-      this.togglePlay()
     },
-    ...mapMutations(['togglePlay'])
+    ...mapMutations(['togglePlay', 'setPlayling'])
   }
 }
 </script>
