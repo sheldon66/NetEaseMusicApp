@@ -19,9 +19,10 @@
         @play="setPlayling(true)"
         @pause="setPlayling(false)"
       ></audio>
+      <progress-bar></progress-bar>
       <div class="control-bar">
-        <i class="iconfont icon-random"></i>
-        <i class="iconfont icon-previous"></i>
+        <i class="iconfont icon-loop"></i>
+        <i class="iconfont icon-prev"></i>
         <i
           class="iconfont"
           @click="playOrPause"
@@ -31,7 +32,7 @@
           }"
         ></i>
         <i class="iconfont icon-next"></i>
-        <i class="iconfont icon-playlist"></i>
+        <i class="iconfont icon-comment"></i>
       </div>
     </div>
   </div>
@@ -39,6 +40,7 @@
 
 <script>
 import getApiData from '@/api/index'
+import progressBar from '@/components/common/progress.vue'
 import { mapState, mapMutations } from 'vuex'
 export default {
   beforeCreate: function () {
