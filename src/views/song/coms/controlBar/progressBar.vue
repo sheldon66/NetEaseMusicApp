@@ -3,7 +3,7 @@
     <!-- <div class="progress-bar" @click="dotMove" @mousemove="dotDrag"> -->
     <div class="progress-bar" @mousemove="dotDrag" @click="barClick">
       <div class="unfilled" ref="unfilledBar"></div>
-      <div class="filled" :style="{ width: `${dot.width}px` }">
+      <div class="filled" :style="{ width: `${(percent * 100).toFixed(2)}%` }">
         <div class="dot" @mousedown="dotDown" @mouseup="dotUp"></div>
       </div>
     </div>
@@ -32,7 +32,7 @@ export default {
   watch: {
     percent: function(newPercent) {
       if (newPercent >= 0 && !this.moveable) {
-        this.dot.width = newPercent * this.rect.width
+        this.dot.width = newPercent
       }
     }
   },

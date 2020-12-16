@@ -18,29 +18,19 @@
         :src="`https://music.163.com/song/media/outer/url?id=${song.id}.mp3`"
         @play="setPlayling(true)"
         @pause="setPlayling(false)"
+        @timeupdate="updateTime"
       ></audio>
-      <progress-bar></progress-bar>
-      <div class="control-bar">
-        <i class="iconfont icon-loop"></i>
-        <i class="iconfont icon-prev"></i>
-        <i
-          class="iconfont"
-          @click="playOrPause"
-          :class="{
-            'icon-play': !playing,
-            'icon-pause': playing,
-          }"
-        ></i>
-        <i class="iconfont icon-next"></i>
-        <i class="iconfont icon-comment"></i>
-      </div>
+      <control-bar
+        :currentTimeMs="currentTime * 1000"
+        :durationTimeMs="this.song.dt"
+      ></control-bar>
     </div>
   </div>
 </template>
 
 <script>
 import getApiData from '@/api/index'
-import progressBar from '@/components/common/progress.vue'
+import controlBar from './coms/controlBar/controlBar.vue'
 import { mapState, mapMutations } from 'vuex'
 export default {
   beforeCreate: function () {
@@ -54,7 +44,8 @@ export default {
   data: function() {
     return {
       receivedData: false,
-      song: null
+      song: null,
+      currentTime: 0
     }
   },
   computed: {
@@ -63,16 +54,19 @@ export default {
     },
     ...mapState(['playing'])
   },
+  watch: {
+    playing: function(newPlaying) {
+      const audio = this.$refs.audio
+      newPlaying ? audio.play() : audio.pause()
+    }
+  },
   methods: {
-    playOrPause: function () {
-      this.$nextTick(
-        () => {
-          this.$refs.audio.paused ? this.$refs.audio.play() : this.$refs.audio.pause()
-        }
-      )
-    },
-    ...mapMutations(['togglePlay', 'setPlayling'])
-  }
+    ...mapMutations(['setPlayling']),
+    updateTime: function () {
+      this.currentTime = this.$refs.audio.currentTime
+    }
+  },
+  components: { controlBar }
 }
 </script>
 
