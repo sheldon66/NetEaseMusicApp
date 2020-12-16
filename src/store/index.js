@@ -9,20 +9,24 @@ export default new Vuex.Store({
     userId: null,
     avatarUrl: null,
     nickname: null,
-    playing: false
+    playing: false,
+    audioElement: null
   },
   mutations: {
-    updateLoginStatus: function (store, payload) {
-      store.isLogin = payload.isLogin
-      store.userId = payload.userId || null
-      store.avatarUrl = payload.avatarUrl || null
-      store.nickname = payload.nickname || null
+    updateLoginStatus: function (state, payload) {
+      state.isLogin = payload.isLogin
+      state.userId = payload.userId || null
+      state.avatarUrl = payload.avatarUrl || null
+      state.nickname = payload.nickname || null
     },
-    togglePlay: function (store) {
-      store.playing = !store.playing
+    togglePlay: function (state) {
+      state.playing = !state.playing
     },
-    setPlayling: function (store, status) {
-      store.playing = status
+    setPlayling: function (state, status) {
+      state.playing = status
+    },
+    setAudioElement: function (state, ele) {
+      state.audioElement = ele
     }
   },
   modules: {
