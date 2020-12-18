@@ -41,6 +41,9 @@ export default {
       }
     )
   },
+  mounted: function () {
+    this.$nextTick(() => { this.setAudioElement(this.$refs.audio) })
+  },
   data: function() {
     return {
       receivedData: false,
@@ -52,7 +55,7 @@ export default {
     authorNames: function () {
       return this.song.ar.map((x) => x.name).join('/')
     },
-    ...mapState(['playing'])
+    ...mapState(['playing', 'audioElement'])
   },
   watch: {
     playing: function(newPlaying) {
@@ -61,7 +64,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setPlayling']),
+    ...mapMutations(['setPlayling', 'setAudioElement']),
     updateTime: function () {
       this.currentTime = this.$refs.audio.currentTime
     }

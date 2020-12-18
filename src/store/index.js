@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as getters from './getters'
 
 Vue.use(Vuex)
 
@@ -10,8 +11,13 @@ export default new Vuex.Store({
     avatarUrl: null,
     nickname: null,
     playing: false,
-    audioElement: null
+    audioElement: null,
+    currentTime: 0,
+    durationTime: 0,
+    playlist: [],
+    currentIndex: -1
   },
+  getters,
   mutations: {
     updateLoginStatus: function (state, payload) {
       state.isLogin = payload.isLogin
@@ -22,11 +28,17 @@ export default new Vuex.Store({
     togglePlay: function (state) {
       state.playing = !state.playing
     },
-    setPlayling: function (state, status) {
+    setPlaying: function (state, status) {
       state.playing = status
     },
     setAudioElement: function (state, ele) {
       state.audioElement = ele
+    },
+    setPlaylist: function (state, playlist) {
+      state.playlist = playlist
+    },
+    setCurrentIndex: function (state, currentIndex) {
+      state.currentIndex = currentIndex
     }
   },
   modules: {

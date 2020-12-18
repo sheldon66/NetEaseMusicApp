@@ -20,7 +20,8 @@
       v-for="(track, index) in tracks"
       :key="index"
       :track="track"
-      :index="index + 1"
+      :index="index"
+      @select-item="selectItem"
     ></item>
   </div>
 </template>
@@ -28,7 +29,9 @@
 <script>
 import getPlaylistDetail from '@/api/playlistDetail.js'
 import item from '@/components/playlist/item.vue'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
+  name: 'playlist',
   created: function () {
     getPlaylistDetail(this.$route.query.id).then(response => {
       this.$data.tracks = response.playlist.tracks
@@ -44,6 +47,17 @@ export default {
       name: null,
       creator: {}
     }
+  },
+  computed: {
+    ...mapGetters(['currentMusic', 'audioElement'])
+  },
+  methods: {
+    selectItem: function (index) {
+      this.setPlaylist(this.tracks)
+      this.setCurrentIndex(index)
+      // this.audioElement.play()
+    },
+    ...mapMutations(['setPlaylist', 'setCurrentIndex'])
   },
   components: { item }
 }

@@ -34,10 +34,10 @@ export default {
   },
   computed: {
     percent: function () { return this.currentTimeMs / this.durationTimeMs }, // 匿名函数不能用this
-    ...mapState(['playing'])
+    ...mapState(['playing', 'audioElement'])
   },
   methods: {
-    ...mapMutations(['togglePlay', 'setPlayling']),
+    ...mapMutations(['togglePlay', 'setPlayling', 'setAudioElement']),
     togglePlaying: function () {
       this.setPlayling(!this.playing)
     }

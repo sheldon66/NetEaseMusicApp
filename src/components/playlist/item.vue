@@ -1,7 +1,8 @@
 <template>
-  <router-link class="playlist-item" :to="`/song/${track.id}`">
+  <!-- <router-link class="playlist-item" :to="`/song/${track.id}`"> -->
+  <div class="playlist-item" @dblclick="selectItem">
     <div class="index">
-      {{ index }}
+      {{ index + 1 }}
     </div>
     <div class="content">
       <div class="title">{{ track.name }}</div>
@@ -9,17 +10,23 @@
         {{ track.ar.map((x) => x.name).join("/") }} - {{ track.al.name }}
       </div>
     </div>
-  </router-link>
+  </div>
+  <!-- </router-link> -->
 </template>
 
 <script>
 export default {
-  props: ['track', 'index']
+  props: ['track', 'index'],
+  methods: {
+    selectItem() {
+      this.$emit('select-item', this.index)
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-a.playlist-item {
+.playlist-item {
   display: flex;
   align-items: center;
   margin-top: 20px;

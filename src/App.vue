@@ -2,16 +2,18 @@
   <div id="app">
     <navbar></navbar>
     <router-view class="view"></router-view>
+    <player></player>
   </div>
 </template>
 
 <script>
 import navbar from '@/components/navbar/navbar'
+import player from '@/views/player/player'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
-  beforeCreate: function() {
-    this.$router.replace(window.location.pathname).catch(() => {})
-  },
-  components: { navbar }
+  components: { navbar, player },
+  computed: { ...mapGetters(['audioElement', 'currentMusic']) },
+  methods: { ...mapMutations(['setPlayling', 'setAudioElement']) }
 }
 
 </script>
@@ -19,7 +21,5 @@ export default {
 #app {
   overflow-y: scroll;
   -webkit-overflow-scrolling: auto;
-}
-.view {
 }
 </style>
