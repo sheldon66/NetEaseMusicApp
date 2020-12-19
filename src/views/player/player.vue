@@ -1,37 +1,60 @@
 <template>
   <div id="player">
-    <div class="control-bar">
-      <i class="iconfont icon-loop"></i>
-      <i class="iconfont icon-prev"></i>
-      <i
-        :class="{
-          iconfont: true,
-          'icon-play': !playing,
-          'icon-pause': playing,
-        }"
-        @click="switchPlay"
-      ></i>
-      <i class="iconfont icon-next"></i>
-      <i class="iconfont icon-comment"></i>
+    <div class="player-bar">
+      <div class="control-bar">
+        <i class="iconfont icon-prev"></i>
+        <i
+          :class="{
+            iconfont: true,
+            'icon-play': !playing,
+            'icon-pause': playing,
+          }"
+          @click="switchPlay"
+        ></i>
+        <i class="iconfont icon-next"></i>
+      </div>
+      <progress-bar
+        :percent="percent"
+        @percentchange="percent = $event"
+      ></progress-bar>
+      <div class="model-bar">
+        <i class="iconfont icon-loop"></i>
+        <i class="iconfont icon-comment"></i>
+      </div>
     </div>
-    <audio ref="player" @play="playAudio" @pause="pauseAudio"></audio>
+    <audio
+      ref="player"
+      @play="setPlaying(true)"
+      @pause="setPlaying(false)"
+      @timeupdate="updateTime"
+    ></audio>
   </div>
 </template>
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import progressBar from './progressBar.vue'
 export default {
-  computed: { ...mapGetters(['audioElement', 'currentMusic', 'playing']) },
+  data: function () {
+    return { currentTime: 0 }
+  },
+  computed: {
+    ...mapGetters(['audioElement', 'currentMusic', 'playing']),
+    percent: {
+      get() { return this.currentTime * 1000 / this.currentMusic.dt },
+      set(newPercent) {
+        const currentTime = this.currentMusic.dt * newPercent / 1000
+        this.audioElement.currentTime = currentTime
+      }
+    }
+  },
   methods: {
     ...mapMutations(['setPlaying', 'setAudioElement']),
     switchPlay() {
       this.playing ? this.audioElement.pause() : this.audioElement.play()
     },
-    playAudio() {
-      this.setPlaying(true)
-    },
-    pauseAudio() {
-      this.setPlaying(false)
+    updateTime() {
+      this.currentTime = this.audioElement.currentTime
     }
   },
   watch: {
@@ -40,18 +63,24 @@ export default {
         `https://music.163.com/song/media/outer/url?id=${newMusic.id}.mp3`
       // this.setPlayling(true)
     }
-    // playing(newPlaying, oldPlaying) {
-    //   if (newPlaying) {
-    //     this.audioElement.play().catch(() => this.setPlayling(oldPlaying))
-    //   }
-    // }
   },
   mounted() {
     this.$nextTick(() => this.setAudioElement(this.$refs.player))
-  }
+  },
+  components: { progressBar }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.player-bar {
+  display: flex;
+  height: 50px;
+  > * {
+    flex: auto;
+    height: 100%;
+  }
+  .iconfont {
+    font-size: 36px;
+  }
+}
 </style>

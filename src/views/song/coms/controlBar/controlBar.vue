@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import progressBar from './progressBar.vue'
+import progressBar from '@/views/player/progressBar.vue'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
