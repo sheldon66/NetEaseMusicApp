@@ -11,7 +11,7 @@
           }"
           @click="switchPlay"
         ></i>
-        <i class="iconfont icon-next"></i>
+        <i class="iconfont icon-next" @click="playNextMusic"></i>
       </div>
       <progress-bar
         :percent="percent"
@@ -39,7 +39,7 @@ export default {
     return { currentTime: 0 }
   },
   computed: {
-    ...mapGetters(['audioElement', 'currentMusic', 'playing']),
+    ...mapGetters(['audioElement', 'currentMusic', 'playing', 'playlist', 'currentIndex']),
     percent: {
       get() { return this.currentTime * 1000 / this.currentMusic.dt },
       set(newPercent) {
@@ -49,19 +49,23 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setPlaying', 'setAudioElement']),
+    ...mapMutations(['setPlaying', 'setAudioElement', 'setCurrentIndex']),
     switchPlay() {
       this.playing ? this.audioElement.pause() : this.audioElement.play()
     },
     updateTime() {
       this.currentTime = this.audioElement.currentTime
+    },
+    playNextMusic() {
+      const newIndex = (this.currentIndex + 1) % this.playlist.length
+      this.setCurrentIndex(newIndex)
     }
   },
   watch: {
     currentMusic(newMusic, oldMusic) {
       this.audioElement.src =
         `https://music.163.com/song/media/outer/url?id=${newMusic.id}.mp3`
-      // this.setPlayling(true)
+      this.$nextTick(() => this.audioElement.play())
     }
   },
   mounted() {

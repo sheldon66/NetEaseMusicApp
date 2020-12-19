@@ -15,7 +15,7 @@ export default new Vuex.Store({
     currentTime: 0,
     durationTime: 0,
     playlist: [],
-    currentIndex: -1
+    currentIndex: 0
   },
   getters,
   mutations: {
