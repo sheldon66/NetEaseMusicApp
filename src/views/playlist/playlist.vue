@@ -28,7 +28,7 @@
 
 <script>
 import getPlaylistDetail from '@/api/playlistDetail.js'
-import item from '@/components/playlist/item.vue'
+import item from './item.vue'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'playlist',
@@ -37,6 +37,7 @@ export default {
       this.$data.tracks = response.playlist.tracks
       this.$data.coverImgUrl = response.playlist.coverImgUrl
       this.$data.name = response.playlist.name
+      this.$data.localPlaylistID = response.playlist.id
       this.$data.creator = response.playlist.creator
     })
   },
@@ -45,19 +46,24 @@ export default {
       tracks: null,
       coverImgUrl: null,
       name: null,
+      localPlaylistID: null,
       creator: {}
     }
   },
   computed: {
-    ...mapGetters(['currentMusic', 'audioElement'])
+    ...mapGetters(['currentMusic', 'audioElement', 'currentIndex', 'playlistID', 'playing'])
   },
   methods: {
     selectItem: function (index) {
-      this.setPlaylist(this.tracks)
+      if (this.localPlaylistID !== this.playlistID) {
+        this.setPlaylist(this.tracks)
+        this.setPlaylistID(this.localPlaylistID)
+      } else if (index === this.currentIndex) {
+        return this.playing ? this.audioElement.pause() : this.audioElement.play() // 待优化
+      }
       this.setCurrentIndex(index)
-      // this.audioElement.play()
     },
-    ...mapMutations(['setPlaylist', 'setCurrentIndex'])
+    ...mapMutations(['setPlaylist', 'setCurrentIndex', 'setPlaylistID'])
   },
   components: { item }
 }

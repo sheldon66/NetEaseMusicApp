@@ -8,3 +8,7 @@ export const playing = state => state.playing
 export const playlist = state => state.playlist
 
 export const currentIndex = state => state.currentIndex
+
+export const playMode = state => state.playMode
+
+export const playlistID = state => state.playlistID

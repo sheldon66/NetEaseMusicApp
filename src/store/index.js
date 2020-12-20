@@ -15,7 +15,9 @@ export default new Vuex.Store({
     currentTime: 0,
     durationTime: 0,
     playlist: [],
-    currentIndex: 0
+    playlistID: null,
+    currentIndex: 0,
+    playMode: 0 // 0: 顺序播放 1:单曲循环 2:随机播放
   },
   getters,
   mutations: {
@@ -37,8 +39,14 @@ export default new Vuex.Store({
     setPlaylist: function (state, playlist) {
       state.playlist = playlist
     },
+    setPlaylistID: function (state, playlistID) {
+      state.playlistID = playlistID
+    },
     setCurrentIndex: function (state, currentIndex) {
       state.currentIndex = currentIndex
+    },
+    setPlayMode: function (state, playMode) {
+      state.playMode = playMode
     }
   },
   modules: {

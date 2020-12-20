@@ -2,7 +2,7 @@
   <div id="player">
     <div class="player-bar">
       <div class="control-bar">
-        <i class="iconfont icon-prev"></i>
+        <i class="iconfont icon-prev" @click="playPreviousMusic"></i>
         <i
           :class="{
             iconfont: true,
@@ -18,7 +18,7 @@
         @percentchange="percent = $event"
       ></progress-bar>
       <div class="model-bar">
-        <i class="iconfont icon-loop"></i>
+        <i class="iconfont" :class="playModeStyle" @click="switchPlayMode"></i>
         <i class="iconfont icon-comment"></i>
       </div>
     </div>
@@ -26,6 +26,7 @@
       ref="player"
       @play="setPlaying(true)"
       @pause="setPlaying(false)"
+      @ended="playNextMusic"
       @timeupdate="updateTime"
     ></audio>
   </div>
@@ -36,10 +37,16 @@ import { mapMutations, mapGetters } from 'vuex'
 import progressBar from './progressBar.vue'
 export default {
   data: function () {
-    return { currentTime: 0 }
+    return {
+      currentTime: 0,
+      playModeIconClass: ['icon-loop', 'icon-loop-one', 'icon-random']
+    }
   },
   computed: {
-    ...mapGetters(['audioElement', 'currentMusic', 'playing', 'playlist', 'currentIndex']),
+    ...mapGetters(['audioElement', 'currentMusic', 'playing', 'playlist', 'currentIndex', 'playMode']),
+    playModeStyle () {
+      return this.playModeIconClass[this.playMode]
+    },
     percent: {
       get() { return this.currentTime * 1000 / this.currentMusic.dt },
       set(newPercent) {
@@ -49,15 +56,27 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setPlaying', 'setAudioElement', 'setCurrentIndex']),
+    ...mapMutations(['setPlaying', 'setAudioElement', 'setCurrentIndex', 'setPlayMode']),
     switchPlay() {
       this.playing ? this.audioElement.pause() : this.audioElement.play()
+    },
+    switchPlayMode() {
+      const newPlayMode = (this.playMode + 1) % 3
+      this.setPlayMode(newPlayMode)
     },
     updateTime() {
       this.currentTime = this.audioElement.currentTime
     },
-    playNextMusic() {
-      const newIndex = (this.currentIndex + 1) % this.playlist.length
+    playNextMusic(event) {
+      if (event.type === 'ended' && this.playMode === 1) {
+        this.audioElement.currentTime = 0
+      } else {
+        const newIndex = (this.currentIndex + 1) % this.playlist.length
+        this.setCurrentIndex(newIndex)
+      }
+    },
+    playPreviousMusic() {
+      const newIndex = (this.currentIndex - 1) % this.playlist.length
       this.setCurrentIndex(newIndex)
     }
   },
