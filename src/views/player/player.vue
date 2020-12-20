@@ -13,10 +13,19 @@
         ></i>
         <i class="iconfont icon-next" @click="playNextMusic"></i>
       </div>
-      <progress-bar
-        :percent="percent"
-        @percentchange="percent = $event"
-      ></progress-bar>
+      <div class="status-bar">
+        <div class="status">
+          <span v-if="!currentMusic.id">欢迎使用vue-player</span>
+          <template v-else>
+            <span>{{ currentMusic.name }}-{{ authorNames }}</span>
+            <span>{{ currentTimeFormat }}/{{ durationTimeFormat }}</span>
+          </template>
+        </div>
+        <progress-bar
+          :percent="percent"
+          @percentchange="percent = $event"
+        ></progress-bar>
+      </div>
       <div class="model-bar">
         <i class="iconfont" :class="playModeStyle" @click="switchPlayMode"></i>
         <i class="iconfont icon-comment"></i>
@@ -34,6 +43,7 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import { secondsToFormatmmSS } from '@/utils/datetime.js'
 import progressBar from './progressBar.vue'
 export default {
   data: function () {
@@ -44,6 +54,15 @@ export default {
   },
   computed: {
     ...mapGetters(['audioElement', 'currentMusic', 'playing', 'playlist', 'currentIndex', 'playMode']),
+    authorNames() {
+      return this.currentMusic.ar ? this.currentMusic.ar.map((x) => x.name).join('/') : ''
+    },
+    currentTimeFormat() {
+      return secondsToFormatmmSS(this.currentTime)
+    },
+    durationTimeFormat() {
+      return secondsToFormatmmSS(this.currentMusic.dt / 1000)
+    },
     playModeStyle () {
       return this.playModeIconClass[this.playMode]
     },
@@ -99,8 +118,11 @@ export default {
   display: flex;
   height: 50px;
   > * {
-    flex: auto;
+    flex: none;
     height: 100%;
+  }
+  > .status-bar {
+    flex: auto;
   }
   .iconfont {
     font-size: 36px;

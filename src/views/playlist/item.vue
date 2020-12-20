@@ -49,4 +49,7 @@ export default {
     }
   }
 }
+.playing {
+  color: red;
+}
 </style>

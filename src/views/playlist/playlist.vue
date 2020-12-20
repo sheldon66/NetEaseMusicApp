@@ -21,6 +21,7 @@
       :key="index"
       :track="track"
       :index="index"
+      :class="{ playing: currentPlayingItem === index }"
       @select-item="selectItem"
     ></item>
   </div>
@@ -51,7 +52,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentMusic', 'audioElement', 'currentIndex', 'playlistID', 'playing'])
+    ...mapGetters(['currentMusic', 'audioElement', 'currentIndex', 'playlistID', 'playing']),
+    currentPlayingItem() {
+      return this.localPlaylistID === this.playlistID ? this.currentIndex : null
+    }
   },
   methods: {
     selectItem: function (index) {
