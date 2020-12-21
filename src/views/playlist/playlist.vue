@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="header">
-      <div class="playlist-background">
+      <!-- <div class="playlist-background">
         <div
           :style="{ backgroundImage: `url(${coverImgUrl}?param=120y120)` }"
         ></div>
-      </div>
-      <div class="plhead">
+      </div> -->
+      <!-- <div class="plhead">
         <div class="plhead_fl">
           <img class="album-cover" :src="`${coverImgUrl}?param=100y100`" />
         </div>
@@ -14,7 +14,7 @@
           <div>{{ name }}</div>
           <div>{{ creator.nickname }}</div>
         </div>
-      </div>
+      </div> -->
     </div>
     <item
       v-for="(track, index) in tracks"

@@ -117,6 +117,7 @@ export default {
 .player-bar {
   display: flex;
   height: 50px;
+  color: $highlight-color;
   > * {
     flex: none;
     height: 100%;

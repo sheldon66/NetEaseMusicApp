@@ -1,25 +1,29 @@
 <template>
   <!-- <router-link class="playlist-item" :to="`/song/${track.id}`"> -->
   <div class="playlist-item" @dblclick="selectItem">
-    <div class="index">
-      {{ index + 1 }}
-    </div>
-    <div class="content">
-      <div class="title">{{ track.name }}</div>
-      <div class="subtitle">
-        {{ track.ar.map((x) => x.name).join("/") }} - {{ track.al.name }}
-      </div>
-    </div>
+    <span class="index">{{ index + 1 }}</span>
+    <span class="title">{{ track.name }}</span>
+    <span class="authors">
+      {{ track.ar.map((x) => x.name).join("/") }}
+    </span>
+    <span class="duration-time">{{ durationTimeFormat }}</span>
   </div>
+
   <!-- </router-link> -->
 </template>
 
 <script>
+import { secondsToFormatmmSS } from '@/utils/datetime.js'
 export default {
   props: ['track', 'index'],
   methods: {
     selectItem() {
       this.$emit('select-item', this.index)
+    }
+  },
+  computed: {
+    durationTimeFormat() {
+      return secondsToFormatmmSS(this.track.dt / 1000)
     }
   }
 }
@@ -30,26 +34,25 @@ export default {
   display: flex;
   align-items: center;
   margin-top: 20px;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
   .index {
-    width: 10%;
-    margin-right: 5px;
+    width: 30px;
+    margin-right: 10px;
     text-align: center;
-    color: #888;
   }
-  .content {
-    width: 90%;
-    > div {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .subtitle {
-      font-size: $small-fontsize;
-      color: #888;
-    }
+  .title {
+    flex: 1;
+  }
+  .authors {
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .duration-time {
+    width: 40px;
   }
 }
 .playing {
-  color: red;
+  color: white;
 }
 </style>
