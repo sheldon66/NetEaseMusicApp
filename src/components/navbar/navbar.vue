@@ -17,7 +17,7 @@ export default {
   name: 'navbar',
   data: function () {
     return {
-      items: [{ name: '正在播放', path: '/playinglist' },
+      items: [{ name: '正在播放', path: '/playlist?id=0' },
         { name: '推荐', path: '/recommend' },
         { name: '搜索', path: '/' },
         { name: '我的歌单', path: '/' },

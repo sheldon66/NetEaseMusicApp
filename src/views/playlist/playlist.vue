@@ -34,13 +34,17 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'playlist',
   created: function () {
-    getPlaylistDetail(this.$route.query.id).then(response => {
-      this.$data.tracks = response.playlist.tracks
-      this.$data.coverImgUrl = response.playlist.coverImgUrl
-      this.$data.name = response.playlist.name
-      this.$data.localPlaylistID = response.playlist.id
-      this.$data.creator = response.playlist.creator
-    })
+    if (this.$route.query.id === '0') {
+      this.tracks = this.playlist
+    } else {
+      getPlaylistDetail(this.$route.query.id).then(response => {
+        this.$data.tracks = response.playlist.tracks
+        this.$data.coverImgUrl = response.playlist.coverImgUrl
+        this.$data.name = response.playlist.name
+        this.$data.localPlaylistID = response.playlist.id
+        this.$data.creator = response.playlist.creator
+      })
+    }
   },
   data: function() {
     return {
@@ -52,7 +56,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentMusic', 'audioElement', 'currentIndex', 'playlistID', 'playing']),
+    ...mapGetters(['currentMusic', 'audioElement', 'currentIndex', 'playlistID', 'playing', 'playlist']),
     currentPlayingItem() {
       return this.localPlaylistID === this.playlistID ? this.currentIndex : null
     }
