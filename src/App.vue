@@ -1,8 +1,15 @@
 <template>
   <div id="app">
-    <header>vue-player</header>
-    <router-view class="view"></router-view>
-    <player></player>
+    <header>
+      <div class="title">vue-player</div>
+      <navbar></navbar>
+    </header>
+    <div class="router-view-wrapper">
+      <keep-alive>
+        <router-view class="view"></router-view>
+      </keep-alive>
+    </div>
+    <player class="player"></player>
     <div class="player-bg-wrapper">
       <div
         class="player-bg"
@@ -16,8 +23,10 @@
 <script>
 import player from '@/views/player/player'
 import { mapMutations, mapGetters } from 'vuex'
+import navbar from '@/components/navbar/navbar.vue'
+
 export default {
-  components: { player },
+  components: { player, navbar },
   computed: {
     ...mapGetters(['audioElement', 'currentMusic']),
     coverImgUrl() {
@@ -33,8 +42,28 @@ export default {
   overflow: hidden;
   -webkit-overflow-scrolling: auto;
   color: $primary-color;
-  .view {
-    height: calc(100vh - 150px);
+  width: 100%;
+  height: 100%;
+  header {
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .router-view-wrapper {
+    padding: 75px 15px 5px 15px;
+    width: 100%;
+    height: calc(100% - 60px);
+    .view {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .player {
+      height: 60px;
+    }
   }
   .player-bg-wrapper,
   .player-mask {
@@ -45,6 +74,7 @@ export default {
     bottom: 0;
   }
 }
+
 .player-bg-wrapper {
   z-index: -2;
   overflow: hidden;

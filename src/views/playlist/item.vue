@@ -30,11 +30,16 @@ export default {
 </script>
 
 <style lang="scss">
+$line-height: 50px;
 .playlist-item {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  height: $line-height;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  > span {
+    height: 100%;
+    line-height: $line-height;
+  }
   .index {
     width: 30px;
     margin-right: 10px;

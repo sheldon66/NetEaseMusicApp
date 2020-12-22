@@ -17,11 +17,11 @@ export default {
   name: 'navbar',
   data: function () {
     return {
-      items: [{ name: '发现', path: '/discover' },
-        { name: '播客', path: '/' },
-        { name: '我的', path: '/myself' },
-        { name: 'K歌', path: '/' },
-        { name: '云村', path: '/' }]
+      items: [{ name: '正在播放', path: '/playinglist' },
+        { name: '推荐', path: '/recommend' },
+        { name: '搜索', path: '/' },
+        { name: '我的歌单', path: '/' },
+        { name: '历史', path: '/' }]
     }
   }
 }
@@ -30,17 +30,11 @@ export default {
 <style lang="scss">
 nav#navbar {
   height: 30px;
-  position: fixed;
-  z-index: 100;
   div.tabtitle {
     display: flex;
     align-items: center;
-    position: fixed;
-    left: 0;
-    top: 0;
     height: 30px;
     width: 100%;
-    background-color: $primary-color;
     a {
       flex: auto;
       text-align: center;

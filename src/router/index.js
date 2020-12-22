@@ -9,9 +9,9 @@ const routes = [
     redirect: '/discover'
   },
   {
-    path: '/discover',
-    name: 'discover',
-    component: () => import('@/views/discover.vue')
+    path: '/recommend',
+    name: 'recommend',
+    component: () => import('@/views/recommend/recommend.vue')
   },
   {
     path: '/myself',
