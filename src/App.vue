@@ -13,7 +13,7 @@
     <div class="player-bg-wrapper">
       <div
         class="player-bg"
-        :style="{ backgroundImage: `url(${coverImgUrl}?param=300y300)` }"
+        :style="{ backgroundImage: `url(${bgImageUrl})` }"
       ></div>
     </div>
     <div class="player-mask"></div>
@@ -29,8 +29,8 @@ export default {
   components: { player, navbar },
   computed: {
     ...mapGetters(['audioElement', 'currentMusic']),
-    coverImgUrl() {
-      return this.currentMusic.al ? this.currentMusic.al.picUrl : ''
+    bgImageUrl() {
+      return this.currentMusic.al ? `${this.currentMusic.al.picUrl}?param=300y300` : require('@/assets/bg.jpg')
     }
   },
   methods: { ...mapMutations(['setPlayling', 'setAudioElement']) }
