@@ -31,20 +31,32 @@
 import getPlaylistDetail from '@/api/playlistDetail.js'
 import item from './item.vue'
 import { mapGetters, mapMutations } from 'vuex'
+function dataUpdate (that, routeID) {
+  if (routeID === '0') {
+    that.tracks = that.playlist
+    that.$data.localPlaylistID = that.playlistID
+  } else {
+    getPlaylistDetail(routeID).then(response => {
+      that.$data.tracks = response.playlist.tracks
+      that.$data.localPlaylistID = response.playlist.id
+      // this.$data.coverImgUrl = response.playlist.coverImgUrl
+      // this.$data.name = response.playlist.name
+      // this.$data.creator = response.playlist.creator
+    })
+  }
+}
 export default {
   name: 'playlist',
-  created: function () {
-    if (this.$route.query.id === '0') {
-      this.tracks = this.playlist
-    } else {
-      getPlaylistDetail(this.$route.query.id).then(response => {
-        this.$data.tracks = response.playlist.tracks
-        this.$data.coverImgUrl = response.playlist.coverImgUrl
-        this.$data.name = response.playlist.name
-        this.$data.localPlaylistID = response.playlist.id
-        this.$data.creator = response.playlist.creator
-      })
-    }
+  activated: function () {
+    dataUpdate(this, this.$route.params.id)
+  },
+  beforeRouteUpdate(to, from, next) {
+    dataUpdate(this, to.params.id)
+    console.log(to.params.id)
+    next()
+  },
+  deactivated() {
+    this.tracks = null
   },
   data: function() {
     return {
