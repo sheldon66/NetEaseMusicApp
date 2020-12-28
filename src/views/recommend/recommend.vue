@@ -7,7 +7,7 @@
           <div class="content">
             <div class="cover" v-for="(item, index) in toplist" :key="index">
               <router-link :to="`/playlist/${item.id}`">
-                <img :src="`${item.coverImgUrl}?param=150y150`" />
+                <img v-lazyload="`${item.coverImgUrl}?param=150y150`" />
               </router-link>
             </div>
           </div>
@@ -21,7 +21,7 @@
               :key="index"
             >
               <router-link :to="`/playlist/${item.id}`">
-                <img :src="`${item.picUrl}?param=150y150`" />
+                <img v-lazyload="`${item.picUrl}?param=150y150`" />
                 <div>{{ item.name }}</div>
               </router-link>
             </div>
@@ -51,6 +51,11 @@ export default {
       toplist: null,
       personalizedList: null
     }
+  },
+  methods: {
+    lazyLoadImg(url) {
+
+    }
   }
 }
 </script>
@@ -65,6 +70,7 @@ export default {
   padding: 0 0 5vw 5vw;
   img {
     width: 100%;
+    object-fit: cover;
   }
   div {
     width: 100%;
