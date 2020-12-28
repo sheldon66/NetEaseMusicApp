@@ -19,7 +19,7 @@ const routes = [
     component: () => import('@/views/myself.vue')
   },
   {
-    path: '/playlist',
+    path: '/playlist/:id',
     name: 'playlist',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
