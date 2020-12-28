@@ -1,12 +1,12 @@
 <template>
   <!-- <router-link class="playlist-item" :to="`/song/${track.id}`"> -->
   <div class="playlist-item" @dblclick="selectItem">
-    <span class="index">{{ index + 1 }}</span>
-    <span class="title">{{ track.name }}</span>
-    <span class="authors">
+    <div class="index">{{ index + 1 }}</div>
+    <div class="title">{{ track.name }}</div>
+    <div class="authors">
       {{ track.ar.map((x) => x.name).join("/") }}
-    </span>
-    <span class="duration-time">{{ durationTimeFormat }}</span>
+    </div>
+    <div class="duration-time">{{ durationTimeFormat }}</div>
   </div>
 
   <!-- </router-link> -->
@@ -36,8 +36,10 @@ $line-height: 50px;
   align-items: center;
   height: $line-height;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
-  > span {
+  > div {
     height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
     line-height: $line-height;
   }
   .index {
@@ -46,14 +48,16 @@ $line-height: 50px;
     text-align: center;
   }
   .title {
-    flex: 1;
+    flex: auto;
+    text-overflow: ellipsis;
   }
   .authors {
-    width: 200px;
+    flex: none;
+    width: 150px;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
   .duration-time {
+    flex: none;
     width: 40px;
   }
 }
