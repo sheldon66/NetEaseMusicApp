@@ -15,16 +15,22 @@
       </div>
       <div class="status-bar">
         <div class="status">
-          <span v-if="!currentMusic.id">欢迎使用vue-player</span>
-          <template v-else>
-            <span>{{ currentMusic.name }}-{{ authorNames }}</span>
-            <span>{{ currentTimeFormat }}/{{ durationTimeFormat }}</span>
-          </template>
+          <div class="text-status">
+            <span v-if="!currentMusic.id">欢迎使用vue-player</span>
+            <template v-else>
+              <div class="title-author">
+                {{ currentMusic.name }}-{{ authorNames }}
+              </div>
+              <div class="time">
+                {{ currentTimeFormat }}/{{ durationTimeFormat }}
+              </div>
+            </template>
+          </div>
+          <progress-bar
+            :percent="percent"
+            @percentchange="percent = $event"
+          ></progress-bar>
         </div>
-        <progress-bar
-          :percent="percent"
-          @percentchange="percent = $event"
-        ></progress-bar>
       </div>
       <div class="model-bar">
         <i class="iconfont" :class="playModeStyle" @click="switchPlayMode"></i>
@@ -112,8 +118,7 @@ export default {
   components: { progressBar }
 }
 </script>
-
-<style lang="scss">
+<style lang="scss" scoped>
 .player-bar {
   display: flex;
   height: 50px;
@@ -124,9 +129,26 @@ export default {
   }
   > .status-bar {
     flex: auto;
+    min-width: 0;
   }
   .iconfont {
     font-size: 36px;
+  }
+}
+.text-status {
+  display: flex;
+  > * {
+    overflow: hidden;
+  }
+  .title-author {
+    flex: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .time {
+    flex: none;
+    width: 100px;
+    text-align: right;
   }
 }
 </style>
