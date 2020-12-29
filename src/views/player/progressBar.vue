@@ -86,7 +86,7 @@ export default {
 </script>
 <style lang="scss">
 .progress-bar {
-  height: 20px;
+  height: 40px;
   width: 100%;
   position: relative;
   > div {

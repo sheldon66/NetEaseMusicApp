@@ -14,11 +14,6 @@ const routes = [
     component: () => import('@/views/recommend/recommend.vue')
   },
   {
-    path: '/myself',
-    name: 'myself',
-    component: () => import('@/views/myself.vue')
-  },
-  {
     path: '/playlist/:id',
     name: 'playlist',
     // route level code-splitting
@@ -36,11 +31,10 @@ const routes = [
   },
   {
     path: '*',
-    name: '404',
+    redirect: '/recommend',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('@/views/notFound.vue')
   }
 ]
 

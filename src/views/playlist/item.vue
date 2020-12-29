@@ -1,6 +1,5 @@
 <template>
-  <!-- <router-link class="playlist-item" :to="`/song/${track.id}`"> -->
-  <div class="playlist-item" @dblclick="selectItem">
+  <div class="playlist-item" @click="selectItem">
     <div class="index">{{ index + 1 }}</div>
     <div class="title">{{ track.name }}</div>
     <div class="authors">
@@ -8,8 +7,6 @@
     </div>
     <div class="duration-time">{{ durationTimeFormat }}</div>
   </div>
-
-  <!-- </router-link> -->
 </template>
 
 <script>
@@ -43,6 +40,7 @@ $line-height: 50px;
     line-height: $line-height;
   }
   .index {
+    flex: none;
     width: 30px;
     margin-right: 10px;
     text-align: center;
