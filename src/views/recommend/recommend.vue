@@ -62,12 +62,15 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: repeat(auto-fill, 100px);
+  gap: 10px;
 }
 .cover {
-  width: 25%;
-  padding: 0 0 5vw 5vw;
+  a {
+    display: block;
+  }
   img {
     width: 100%;
     object-fit: cover;
