@@ -5,7 +5,7 @@
     <div class="authors">
       {{ track.ar.map((x) => x.name).join("/") }}
     </div>
-    <div class="duration-time">{{ durationTimeFormat }}</div>
+    <!-- <div class="duration-time">{{ durationTimeFormat }}</div> -->
   </div>
 </template>
 
@@ -39,11 +39,12 @@ $line-height: 50px;
     white-space: nowrap;
     line-height: $line-height;
   }
+  > div:not(:last-child) {
+    margin-right: 10px;
+  }
   .index {
     flex: none;
     width: 30px;
-    margin-right: 10px;
-    text-align: center;
   }
   .title {
     flex: auto;
@@ -51,12 +52,13 @@ $line-height: 50px;
   }
   .authors {
     flex: none;
-    width: 150px;
+    width: 80px;
     text-overflow: ellipsis;
   }
   .duration-time {
     flex: none;
     width: 40px;
+    text-align: right;
   }
 }
 .playing {

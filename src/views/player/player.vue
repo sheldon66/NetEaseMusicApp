@@ -1,44 +1,17 @@
 <template>
   <div id="player">
     <div class="player-bar">
-      <div class="control-bar">
-        <i class="iconfont icon-prev" @click="playPreviousMusic"></i>
-        <i
-          :class="{
-            iconfont: true,
-            'icon-play': !playing,
-            'icon-pause': playing,
-          }"
-          @click="switchPlay"
-        ></i>
-        <i class="iconfont icon-next" @click="playNextMusic"></i>
-      </div>
-      <div class="status-bar">
-        <div class="status">
-          <div class="text-status">
-            <span v-if="!currentMusic.id">欢迎使用vue-player</span>
-            <template v-else>
-              <div class="title-author">
-                {{ currentMusic.name }}-{{ authorNames }}
-              </div>
-              <div class="time">
-                {{ currentTimeFormat }}/{{ durationTimeFormat }}
-              </div>
-            </template>
-          </div>
-          <progress-bar
-            :percent="percent"
-            @percentchange="percent = $event"
-          ></progress-bar>
-        </div>
-      </div>
-      <div class="model-bar">
-        <i class="iconfont" :class="playModeStyle" @click="switchPlayMode"></i>
-        <i class="iconfont icon-comment"></i>
-      </div>
+      <status-bar></status-bar>
+      <control-bar
+        @play-next="playNextMusic"
+        @play-previous="playPreviousMusic"
+        @play-toggle="togglePlay"
+      ></control-bar>
     </div>
     <audio
       ref="player"
+      autoplay
+      :loop="playMode === 1"
       @play="setPlaying(true)"
       @pause="setPlaying(false)"
       @ended="playNextMusic"
@@ -49,56 +22,24 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
-import { secondsToFormatmmSS } from '@/utils/datetime.js'
-import progressBar from './progressBar.vue'
+import ControlBar from './controlBar.vue'
+import StatusBar from './statusBar.vue'
 export default {
-  data: function () {
-    return {
-      currentTime: 0,
-      playModeIconClass: ['icon-loop', 'icon-loop-one', 'icon-random']
-    }
-  },
   computed: {
-    ...mapGetters(['audioElement', 'currentMusic', 'playing', 'playlist', 'currentIndex', 'playMode']),
-    authorNames() {
-      return this.currentMusic.ar ? this.currentMusic.ar.map((x) => x.name).join('/') : ''
-    },
-    currentTimeFormat() {
-      return secondsToFormatmmSS(this.currentTime)
-    },
-    durationTimeFormat() {
-      return secondsToFormatmmSS(this.currentMusic.dt / 1000)
-    },
-    playModeStyle () {
-      return this.playModeIconClass[this.playMode]
-    },
-    percent: {
-      get() { return this.currentTime * 1000 / this.currentMusic.dt },
-      set(newPercent) {
-        const currentTime = this.currentMusic.dt * newPercent / 1000
-        this.audioElement.currentTime = currentTime
-      }
-    }
+    ...mapGetters(['audioElement', 'currentTime', 'seekTime', 'currentMusic',
+      'playing', 'playlist', 'currentIndex', 'playMode'])
   },
   methods: {
-    ...mapMutations(['setPlaying', 'setAudioElement', 'setCurrentIndex', 'setPlayMode']),
-    switchPlay() {
+    ...mapMutations(['setPlaying', 'setAudioElement', 'setCurrentIndex', 'setCurrentTime']),
+    togglePlay() {
       this.playing ? this.audioElement.pause() : this.audioElement.play()
     },
-    switchPlayMode() {
-      const newPlayMode = (this.playMode + 1) % 3
-      this.setPlayMode(newPlayMode)
-    },
     updateTime() {
-      this.currentTime = this.audioElement.currentTime
+      this.setCurrentTime(this.audioElement.currentTime)
     },
     playNextMusic(event) {
-      if (event.type === 'ended' && this.playMode === 1) {
-        this.audioElement.currentTime = 0
-      } else {
-        const newIndex = (this.currentIndex + 1) % this.playlist.length
-        this.setCurrentIndex(newIndex)
-      }
+      const newIndex = (this.currentIndex + 1) % this.playlist.length
+      this.setCurrentIndex(newIndex)
     },
     playPreviousMusic() {
       const newIndex = (this.currentIndex - 1) % this.playlist.length
@@ -110,45 +51,28 @@ export default {
       this.audioElement.src =
         `https://music.163.com/song/media/outer/url?id=${newMusic.id}.mp3`
       this.$nextTick(() => this.audioElement.play())
+    },
+    seekTime(newTime, oldTime) {
+      this.$refs.player.currentTime = newTime
     }
   },
   mounted() {
     this.$nextTick(() => this.setAudioElement(this.$refs.player))
   },
-  components: { progressBar }
+  components: { ControlBar, StatusBar }
 }
 </script>
 <style lang="scss" scoped>
 .player-bar {
-  display: flex;
-  height: 50px;
+  // display: flex;
+  height: 100%;
   color: $highlight-color;
   > * {
-    flex: none;
-    height: 100%;
+    // flex: none;
   }
   > .status-bar {
-    flex: auto;
+    // flex: auto;
     min-width: 0;
-  }
-  .iconfont {
-    font-size: 36px;
-  }
-}
-.text-status {
-  display: flex;
-  > * {
-    overflow: hidden;
-  }
-  .title-author {
-    flex: auto;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .time {
-    flex: none;
-    width: 100px;
-    text-align: right;
   }
 }
 </style>

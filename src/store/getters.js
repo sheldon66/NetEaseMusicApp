@@ -12,3 +12,7 @@ export const currentIndex = state => state.currentIndex
 export const playMode = state => state.playMode
 
 export const playlistID = state => state.playlistID
+
+export const seekTime = state => state.seekTime
+
+export const currentTime = state => state.currentTime

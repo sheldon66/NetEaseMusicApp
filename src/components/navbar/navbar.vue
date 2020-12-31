@@ -17,10 +17,10 @@ export default {
   name: 'navbar',
   data: function () {
     return {
-      items: [{ name: '正在播放', path: '/playlist/0' },
+      items: [{ name: '播放', path: '/playlist/0' },
         { name: '推荐', path: '/recommend' },
         { name: '搜索', path: '/' },
-        { name: '我的歌单', path: '/' },
+        { name: '歌词', path: '/' },
         { name: '历史', path: '/' }]
     }
   }
@@ -35,8 +35,9 @@ nav#navbar {
     align-items: center;
     height: 30px;
     width: 100%;
+    justify-content: space-between;
     a {
-      flex: auto;
+      flex: none;
       text-align: center;
     }
   }

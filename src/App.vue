@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <header>
-      <div class="title">vue-player</div>
       <navbar></navbar>
     </header>
     <div class="router-view-wrapper">
@@ -38,31 +37,31 @@ export default {
 
 </script>
 <style lang="scss">
+$padding-horizontal: 15px;
+$player-height: 80px;
+$header-height: 50px;
 #app {
   overflow: hidden;
   -webkit-overflow-scrolling: auto;
   color: $primary-color;
-  width: 100%;
-  height: 100%;
   header {
-    height: 60px;
+    height: $header-height;
     width: 100%;
     position: absolute;
+    padding: 0 $padding-horizontal;
     top: 0;
     left: 0;
   }
   .router-view-wrapper {
-    padding: 75px 15px 5px 15px;
+    padding: $header-height $padding-horizontal 0px $padding-horizontal;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - #{$player-height});
     .view {
       width: 100%;
       height: 100%;
+
       overflow-y: auto;
       overflow-x: hidden;
-    }
-    .player {
-      height: 60px;
     }
   }
   .player-bg-wrapper,
@@ -72,6 +71,10 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
+  }
+  .player {
+    height: $player-height;
+    padding: 0 $padding-horizontal 0 $padding-horizontal;
   }
 }
 
@@ -86,7 +89,7 @@ export default {
   opacity: 0.7;
   filter: blur(15px);
   transition: all 0.8s;
-  transform: scale(1.1);
+  transform: scale(1.2);
   width: 100%;
   height: 100%;
 }

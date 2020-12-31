@@ -8,8 +8,13 @@
   >
     <div class="total" ref="totalBar"></div>
     <div class="filled" :style="{ width: `${filledWidth}px` }">
-      <div class="dot" @mousedown.stop="dotMousedown"></div>
+      <!-- <div class="dot" @mousedown.stop="dotMousedown"></div> -->
     </div>
+    <div
+      class="dot"
+      @mousedown.stop="dotMousedown"
+      :style="{ left: `${filledWidth - 5}px` }"
+    ></div>
   </div>
 </template>
 
@@ -84,9 +89,10 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+$dot-raidus: 5px;
 .progress-bar {
-  height: 40px;
+  height: 20px;
   width: 100%;
   position: relative;
   > div {
@@ -96,23 +102,23 @@ export default {
   }
 }
 .filled {
-  background-color: red;
-  height: 20px;
+  background-color: $highlight-color;
+  height: 2px;
   position: absolute;
   left: 0;
 }
 .total {
-  background-color: blue;
-  height: 5px;
+  background-color: hsla(0, 0%, 100%, 0.3);
+  height: 2px;
   width: 100%;
   position: absolute;
 }
+
 .dot {
-  width: 20px;
-  height: 20px;
+  width: $dot-raidus * 2;
+  height: $dot-raidus * 2;
   border-radius: 50%;
-  background-color: black;
+  background-color: #bfc1c1;
   position: absolute;
-  right: -10px;
 }
 </style>

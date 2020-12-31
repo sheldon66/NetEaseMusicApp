@@ -13,6 +13,7 @@ export default new Vuex.Store({
     playing: false,
     audioElement: null,
     currentTime: 0,
+    seekTime: 0,
     durationTime: 0,
     playlist: [],
     playlistID: null,
@@ -47,6 +48,12 @@ export default new Vuex.Store({
     },
     setPlayMode: function (state, playMode) {
       state.playMode = playMode
+    },
+    setCurrentTime: function (state, currentTime) {
+      state.currentTime = currentTime
+    },
+    setSeekTime: function (state, seekTime) {
+      state.seekTime = seekTime
     }
   },
   modules: {
