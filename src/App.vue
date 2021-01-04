@@ -5,7 +5,7 @@
     </header>
     <div class="router-view-wrapper">
       <keep-alive>
-        <router-view class="view"></router-view>
+        <router-view></router-view>
       </keep-alive>
     </div>
     <player class="player"></player>
@@ -18,7 +18,6 @@
     <div class="player-mask"></div>
   </div>
 </template>
-
 <script>
 import player from '@/views/player/player'
 import { mapMutations, mapGetters } from 'vuex'
@@ -37,7 +36,6 @@ export default {
 
 </script>
 <style lang="scss">
-$padding-horizontal: 15px;
 $player-height: 80px;
 $header-height: 50px;
 #app {
@@ -53,16 +51,9 @@ $header-height: 50px;
     left: 0;
   }
   .router-view-wrapper {
-    padding: $header-height $padding-horizontal 0px $padding-horizontal;
-    width: 100%;
+    padding-top: $header-height;
+    margin: 0 $padding-horizontal;
     height: calc(100% - #{$player-height});
-    .view {
-      width: 100%;
-      height: 100%;
-
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
   }
   .player-bg-wrapper,
   .player-mask {

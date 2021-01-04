@@ -61,6 +61,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.recommend {
+  width: 100%;
+  height: 100%;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .content {
   display: grid;
   justify-content: space-between;

@@ -1,32 +1,28 @@
 <template>
-  <div class="playlist-item" @click="selectItem">
-    <div class="index">{{ index + 1 }}</div>
-    <div class="title">{{ track.name }}</div>
-    <div class="authors">
-      {{ track.ar.map((x) => x.name).join("/") }}
-    </div>
-    <!-- <div class="duration-time">{{ durationTimeFormat }}</div> -->
+  <div class="row">
+    <div class="cover-pic" v-bind:style="styleObj"></div>
+    <div v-if="index" class="index">{{ title }}</div>
+    <div class="title">{{ title }}</div>
+    <div class="subtitle">{{ subtitle }}</div>
   </div>
 </template>
 
 <script>
-import { secondsToFormatmmSS } from '@/utils/datetime.js'
 export default {
-  props: ['track', 'index'],
-  methods: {
-    selectItem() {
-      this.$emit('select-item', this.index)
+  data: function () {
+    return {
+      styleObj: {
+        backgroundImage: `url(${this.pic}?param=140y140)`
+      }
     }
   },
-  computed: {
-    durationTimeFormat() {
-      return secondsToFormatmmSS(this.track.dt / 1000)
-    }
-  }
+  props: ['index', 'pic', 'title', 'subtitle']
+
 }
 </script>
 
 <style lang="scss">
+$line-height: 50px;
 .playlist-item {
   display: flex;
   align-items: center;

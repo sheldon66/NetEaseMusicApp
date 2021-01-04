@@ -43,6 +43,9 @@ export default new Vuex.Store({
     setPlaylistID: function (state, playlistID) {
       state.playlistID = playlistID
     },
+    insertPlaylist: function (state, payload) {
+      state.playlist.splice(state.currentIndex, 0, payload)
+    },
     setCurrentIndex: function (state, currentIndex) {
       state.currentIndex = currentIndex
     },

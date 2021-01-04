@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import getApiData from '@/api/index'
 import { mapMutations, mapGetters } from 'vuex'
 import ControlBar from './controlBar.vue'
 import StatusBar from './statusBar.vue'
@@ -48,8 +49,10 @@ export default {
   },
   watch: {
     currentMusic(newMusic, oldMusic) {
-      this.audioElement.src =
-        `https://music.163.com/song/media/outer/url?id=${newMusic.id}.mp3`
+      getApiData(`/song/url?id=${newMusic.id}`).then(
+        response => {
+          this.audioElement.src = response.data[0].url
+        })
       this.$nextTick(() => this.audioElement.play())
     },
     seekTime(newTime, oldTime) {
@@ -64,7 +67,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .player-bar {
-  // display: flex;
   height: 100%;
   color: $highlight-color;
   > * {

@@ -1,21 +1,6 @@
 <template>
-  <div>
-    <div class="header">
-      <!-- <div class="playlist-background">
-        <div
-          :style="{ backgroundImage: `url(${coverImgUrl}?param=120y120)` }"
-        ></div>
-      </div> -->
-      <!-- <div class="plhead">
-        <div class="plhead_fl">
-          <img class="album-cover" :src="`${coverImgUrl}?param=100y100`" />
-        </div>
-        <div class="plhead_rl">
-          <div>{{ name }}</div>
-          <div>{{ creator.nickname }}</div>
-        </div>
-      </div> -->
-    </div>
+  <div class="view">
+    <div class="header"></div>
     <item
       v-for="(track, index) in tracks"
       :key="index"
@@ -90,6 +75,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.view {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .header {
   position: relative;
 }
