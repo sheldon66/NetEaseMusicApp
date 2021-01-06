@@ -20,8 +20,8 @@ export default {
       items: [{ name: '播放', path: '/playlist/0' },
         { name: '推荐', path: '/recommend' },
         { name: '搜索', path: '/search' },
-        { name: '歌词', path: '/' },
-        { name: '历史', path: '/' }]
+        { name: '歌词', path: '/lyric' },
+        { name: '历史', path: '/history' }]
     }
   }
 }

@@ -35,6 +35,11 @@ const routes = [
     component: () => import('@/views/song/song.vue')
   },
   {
+    path: '/lyric',
+    name: 'lyric',
+    component: () => import('@/views/lrc/lyric.vue')
+  },
+  {
     path: '*',
     redirect: '/recommend'
     // route level code-splitting
