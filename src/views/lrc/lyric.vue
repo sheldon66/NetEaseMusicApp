@@ -5,7 +5,7 @@
         v-for="(line, index) in lyric"
         :key="index"
         :index="index"
-        :class="{ highlight: lineIndex == index }"
+        :class="{ highlight: lineIndex === index }"
       >
         {{ line.text }}
       </div>
@@ -31,7 +31,7 @@ export default {
       lyric: null,
       lineIndex: 0,
       top: 0,
-      lineHeight: 30
+      lineHeight: 50
     }
   },
   methods: {
@@ -93,7 +93,7 @@ export default {
   #lyric {
     text-align: center;
     div {
-      line-height: 30px;
+      height: 50px;
     }
     .highlight {
       color: white;
