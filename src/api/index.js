@@ -1,5 +1,5 @@
 export default function getApiData(path) {
-  return fetch(`http://192.168.50.57:3000${path}`, { credentials: 'include' })
+  return fetch(`http://${process.env.VUE_APP_API_DOMAIN}:3000${path}`, { credentials: 'include' })
     .then((response) => {
       if (!response.json) {
         console.log('返回数据没有json方法')
