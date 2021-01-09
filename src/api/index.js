@@ -8,12 +8,4 @@ export default function getApiData(path) {
         return response.json()
       }
     })
-  // .then((response) => {
-  //   if (response.code === 200) {
-  //     return response
-  //   } else {
-  //     const msg = response.msg || '服务器异常'
-  //     throw Error(`${response.code}: ${msg}`)
-  //   }
-  // })
 }
