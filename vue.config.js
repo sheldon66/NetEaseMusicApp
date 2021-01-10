@@ -23,15 +23,5 @@ module.exports = {
       }
       // 给 less-loader 传递 Less.js 相关选项
     }
-  },
-  devServer: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        pathRewrite: { '^/api': '' },
-        changeOrigin: true,
-        secure: false
-      }
-    }
   }
 }
